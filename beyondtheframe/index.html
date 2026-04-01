@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beyond The Frame — Go Beyond.</title>
+  <meta name="description" content="Free tools and resources built for people, by Robert A. Asumeng. Go beyond."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    /* ── HERO ── */
+    .hero {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 7rem 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: -15%;
+      right: -8%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(201,168,76,0.055) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 0.5px;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+
+    .hero-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(58px, 9vw, 108px);
+      font-weight: 300;
+      line-height: 0.95;
+      color: var(--cream);
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-heading em {
+      font-style: italic;
+      color: var(--gold-light);
+      display: block;
+    }
+
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(16px, 2.5vw, 22px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-desc {
+      max-width: 500px;
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.85;
+      margin-bottom: 3rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── MARQUEE STRIP ── */
+    .marquee-strip {
+      overflow: hidden;
+      border-top: 0.5px solid var(--gold-dim);
+      border-bottom: 0.5px solid var(--gold-dim);
+      padding: 0.85rem 0;
+      background: var(--dark-2);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 3rem;
+      animation: marquee 22s linear infinite;
+      white-space: nowrap;
+    }
+
+    .marquee-track span {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .marquee-track span.accent { color: var(--gold); }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── ABOUT STRIP ── */
+    .about-strip {
+      padding: 6rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.3;
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .about-quote::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      bottom: 6px;
+      width: 1.5px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+
+    .about-right p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── PROJECTS PREVIEW ── */
+    .projects-preview {
+      padding: 6rem 4rem;
+      background: var(--dark-2);
+    }
+
+    .projects-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      border: 0.5px solid rgba(201,168,76,0.14);
+      padding: 2.25rem;
+      background: var(--dark-3);
+      position: relative;
+      transition: border-color 0.25s, transform 0.2s;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.4s ease;
+    }
+
+    .project-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-4px); }
+    .project-card:hover::after { width: 100%; }
+
+    .project-card.placeholder {
+      opacity: 0.38;
+      border-style: dashed;
+      pointer-events: none;
+    }
+
+    .project-abbr {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+
+    .project-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 0.85rem;
+      line-height: 1.2;
+    }
+
+    .project-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    .project-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      font-weight: 400;
+    }
+
+    .badge-soon {
+      background: rgba(201,168,76,0.08);
+      color: var(--gold);
+      border: 0.5px solid rgba(201,168,76,0.28);
+    }
+
+    .badge-live {
+      background: rgba(97,196,125,0.08);
+      color: #7DD4A0;
+      border: 0.5px solid rgba(97,196,125,0.28);
+    }
+
+    .card-arrow {
+      font-size: 18px;
+      color: var(--gold);
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .project-card:hover .card-arrow { opacity: 1; transform: translateX(5px); }
+
+    /* ── STATS ── */
+    .stats-bar {
+      padding: 5rem 4rem;
+      display: flex;
+      gap: 5rem;
+      flex-wrap: wrap;
+      border-top: 0.5px solid var(--gold-dim);
+    }
+
+    .stat { }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .stat-num span { color: var(--gold); }
+
+    .stat-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { padding: 5rem 1.5rem 4rem; }
+      .about-strip { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; }
+      .projects-preview { padding: 4rem 1.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .projects-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+      .stats-bar { padding: 4rem 1.5rem; gap: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Beyond The <span>Frame</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="pages/about.html">About</a></li>
+    <li><a href="pages/projects.html">Projects</a></li>
+    <li><a href="pages/beyond-the-resume.html" class="btn-nav">Beyond The Résumé →</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <p class="hero-eyebrow">Robert A. Asumeng &nbsp;·&nbsp; beyondtheframe.co</p>
+  <h1 class="hero-heading">
+    Beyond<br>
+    <em>The Frame.</em>
+  </h1>
+  <p class="hero-tagline">Go beyond.</p>
+  <p class="hero-desc">
+    Free tools and ideas built for people — rooted in purpose, not profit. 
+    Looking past the world's defaults and building something better.
+  </p>
+  <div class="hero-cta">
+    <a href="pages/projects.html" class="btn-primary">Explore Projects</a>
+    <a href="pages/about.html" class="btn-outline">About Robert</a>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span class="accent">Beyond The Frame</span>
+    <span>·</span>
+    <span>Go Beyond</span>
+    <span>·</span>
+    <span class="accent">BTR — Beyond The Résumé</span>
+    <span>·</span>
+    <span>Free. Always.</span>
+    <span>·</span>
+    <span class="accent">BTN — Beyond The News</span>
+    <span>·</span>
+    <span>Built For People</span>
+    <span>·</span>
+    <span class="accent">Beyond The Frame</span>
+    <span>·</span>
+    <span>Go Beyond</span>
+    <span>·</span>
+    <span class="accent">BTR — Beyond The Résumé</span>
+    <span>·</span>
+    <span>Free. Always.</span>
+    <span>·</span>
+    <span class="accent">BTN — Beyond The News</span>
+    <span>·</span>
+    <span>Built For People</span>
+    <span>·</span>
+  </div>
+</div>
+
+<!-- ABOUT STRIP -->
+<section class="about-strip">
+  <div class="fade-up">
+    <p class="about-quote">
+      "The world has a frame it wants to put around everything. Our job is to go past it."
+    </p>
+  </div>
+  <div class="fade-up">
+    <p class="section-label">The Mission</p>
+    <div class="about-right">
+      <p>Beyond The Frame is built on a simple conviction: the world defaults to a narrow view of what people can be and do. We're here to challenge that — one free tool at a time.</p>
+      <p>Rooted in faith and a commitment to serving others the way Christ served, every project under this brand exists to add genuine value without asking anything in return.</p>
+    </div>
+    <a href="pages/about.html" class="btn-outline">Read More About Robert</a>
+  </div>
+</section>
+
+<!-- PROJECTS PREVIEW -->
+<section class="projects-preview">
+  <div class="projects-header">
+    <div>
+      <p class="section-label">Projects</p>
+      <h2 class="section-title">Free tools.<br><em>Real impact.</em></h2>
+    </div>
+    <a href="pages/projects.html" class="btn-outline">View All Projects</a>
+  </div>
+
+  <div class="projects-grid">
+
+    <a href="pages/beyond-the-resume.html" class="project-card fade-up">
+      <p class="project-abbr">BTR &nbsp;·&nbsp; Resume</p>
+      <h3 class="project-name">Beyond The Résumé</h3>
+      <p class="project-desc">A free tool to help you present yourself as more than a list of bullet points — because you are.</p>
+      <div class="project-footer">
+        <span class="badge badge-soon">Coming Soon</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <div class="project-card fade-up" style="animation-delay: 0.1s">
+      <p class="project-abbr">BTN &nbsp;·&nbsp; Newsletter</p>
+      <h3 class="project-name">Beyond The News</h3>
+      <p class="project-desc">A newsletter that looks past the headline and asks what it actually means for you.</p>
+      <div class="project-footer">
+        <span class="badge badge-soon">Coming Soon</span>
+      </div>
+    </div>
+
+    <div class="project-card placeholder fade-up" style="animation-delay: 0.2s">
+      <p class="project-abbr">BTF &nbsp;·&nbsp; More</p>
+      <h3 class="project-name">More on the way.</h3>
+      <p class="project-desc">New projects in development. Every one of them free. Every one built with purpose.</p>
+      <div class="project-footer">
+        <span class="badge badge-soon">In Progress</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat fade-up">
+    <div class="stat-num"><span data-downloads="total">0</span><span>+</span></div>
+    <div class="stat-label">Total Downloads</div>
+  </div>
+  <div class="stat fade-up">
+    <div class="stat-num">2<span>+</span></div>
+    <div class="stat-label">Projects</div>
+  </div>
+  <div class="stat fade-up">
+    <div class="stat-num">100<span>%</span></div>
+    <div class="stat-label">Free, Always</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">Beyond The Frame</div>
+    <div class="footer-domain">beyondtheframe.co</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="pages/about.html">About</a></li>
+    <li><a href="pages/projects.html">Projects</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Robert A. Asumeng</div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

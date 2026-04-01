@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Robert — Beyond The Frame</title>
+  <meta name="description" content="Robert A. Asumeng — builder, creator, and the person behind Beyond The Frame."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 7rem 4rem 5rem;
+      border-bottom: 0.5px solid var(--gold-dim);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero-glow {
+      position: absolute;
+      top: -30%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.045) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .page-hero-label {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .page-hero-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 0.5px;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+
+    .page-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 300;
+      line-height: 0.95;
+      color: var(--cream);
+      margin-bottom: 2rem;
+    }
+
+    .page-hero h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .page-hero-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 480px;
+      line-height: 1.85;
+    }
+
+    /* ── PROFILE SECTION ── */
+    .profile-section {
+      padding: 6rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .profile-left { }
+
+    .avatar-ring {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 0.5px solid rgba(201,168,76,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .avatar-ring::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border-radius: 50%;
+      border: 0.5px solid rgba(201,168,76,0.15);
+    }
+
+    .avatar-initials {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 300;
+      color: var(--gold-light);
+      letter-spacing: 0.05em;
+    }
+
+    .profile-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 0.35rem;
+    }
+
+    .profile-title {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+    }
+
+    .profile-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .profile-link {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: color 0.2s;
+    }
+
+    .profile-link:hover { color: var(--gold); }
+
+    .profile-link-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+
+    /* ── BIO ── */
+    .bio-block h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 2rem;
+      line-height: 1.15;
+    }
+
+    .bio-block h2 em { font-style: italic; color: var(--gold-light); }
+
+    .bio-block p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.95;
+      margin-bottom: 1.5rem;
+    }
+
+    .bio-placeholder {
+      border: 0.5px dashed rgba(201,168,76,0.25);
+      padding: 2.5rem;
+      background: var(--dark-2);
+      margin: 2rem 0;
+    }
+
+    .bio-placeholder p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 17px;
+      color: var(--text-dim);
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    /* ── VALUES ── */
+    .values-section {
+      padding: 6rem 4rem;
+      background: var(--dark-2);
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+
+    .value-card {
+      border: 0.5px solid var(--gold-dim);
+      padding: 2.25rem;
+      background: var(--dark-3);
+    }
+
+    .value-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 300;
+      color: var(--gold-dim);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .value-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 0.75rem;
+    }
+
+    .value-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    /* ── CTA ── */
+    .about-cta {
+      padding: 6rem 4rem;
+      text-align: center;
+      border-top: 0.5px solid var(--gold-dim);
+    }
+
+    .about-cta h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 5vw, 56px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-cta p {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.85;
+    }
+
+    .cta-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .page-hero { padding: 5rem 1.5rem 4rem; }
+      .profile-section { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; }
+      .values-section { padding: 4rem 1.5rem; }
+      .values-grid { grid-template-columns: 1fr; }
+      .about-cta { padding: 4rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-logo">Beyond The <span>Frame</span></a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="beyond-the-resume.html" class="btn-nav">Beyond The Résumé →</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-glow"></div>
+  <p class="page-hero-label">About</p>
+  <h1>Robert A.<br><em>Asumeng.</em></h1>
+  <p class="page-hero-sub">Builder, creator, and the person behind Beyond The Frame — committed to going against the grain and building for others.</p>
+</div>
+
+<!-- PROFILE + BIO -->
+<section class="profile-section">
+  <div class="profile-left fade-up">
+    <div class="avatar-ring">
+      <span class="avatar-initials">RAA</span>
+    </div>
+    <h2 class="profile-name">Robert A. Asumeng</h2>
+    <p class="profile-title">Founder, Beyond The Frame</p>
+    <div class="profile-links">
+      <span class="profile-link"><span class="profile-link-dot"></span>beyondtheframe.co</span>
+      <span class="profile-link"><span class="profile-link-dot"></span>Free tools for everyone</span>
+      <span class="profile-link"><span class="profile-link-dot"></span>Faith-driven, people-first</span>
+    </div>
+  </div>
+
+  <div class="bio-block fade-up">
+    <h2>Going against<br>the <em>grain.</em></h2>
+
+    <p>Beyond The Frame exists because Robert A. Asumeng believes most people are handed a picture with the frame already built around it — and told that's the whole story.</p>
+
+    <div class="bio-placeholder">
+      <p>Robert's personal bio will live here. This space is reserved — return soon to read more about his story, his work, and what drives everything behind Beyond The Frame.</p>
+    </div>
+
+    <p>What drives every project under this brand is a conviction rooted in faith: that we are called to benefit others the way Christ benefited us — freely, genuinely, and without condition. Every tool on this site is free because that's what the mission demands.</p>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-section">
+  <p class="section-label">What This Is Built On</p>
+  <h2 class="section-title">The <em>values.</em></h2>
+
+  <div class="values-grid">
+    <div class="value-card fade-up">
+      <div class="value-num">01</div>
+      <h3 class="value-title">Go Against the Grain</h3>
+      <p class="value-desc">The world has defaults. Defaults for how you present yourself, what you should want, what counts as success. Beyond The Frame pushes back on every one of them.</p>
+    </div>
+
+    <div class="value-card fade-up">
+      <div class="value-num">02</div>
+      <h3 class="value-title">Serve First</h3>
+      <p class="value-desc">Every project here is free — not as a strategy, but as a standard. Rooted in the belief that the best way to build something is to genuinely care about the people using it.</p>
+    </div>
+
+    <div class="value-card fade-up">
+      <div class="value-num">03</div>
+      <h3 class="value-title">Look Further</h3>
+      <p class="value-desc">Beyond The Frame isn't about tearing down — it's about seeing past. Past the headline, past the résumé, past the frame. There's always more to the story.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="about-cta">
+  <h2>Ready to go beyond?</h2>
+  <p>Explore the free tools Robert has built — and check back as more projects launch under the Beyond The Frame brand.</p>
+  <div class="cta-btns">
+    <a href="projects.html" class="btn-primary">See All Projects</a>
+    <a href="beyond-the-resume.html" class="btn-outline">Beyond The Résumé</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">Beyond The Frame</div>
+    <div class="footer-domain">beyondtheframe.co</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Robert A. Asumeng</div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
