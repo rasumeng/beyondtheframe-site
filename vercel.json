@@ -1,6 +1,4 @@
 {
-  "buildCommand": "",
-  "outputDirectory": "beyondtheframe",
   "cleanUrls": true,
   "trailingSlash": false
 }
