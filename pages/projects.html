@@ -102,7 +102,7 @@
 
     /* ── PROJECTS LIST ── */
     .projects-section {
-      padding: 5rem 4rem;
+      padding: 0 4rem 5rem 4rem;
     }
 
     .projects-list {
@@ -308,11 +308,11 @@
     <img src="../images/transparent-full.svg" alt="Beyond The Frame" class="logo-img">
   </a>
   <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="pages/about.html">About</a></li>
-    <li><a href="pages/projects.html">Projects</a></li>
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
     <li><a href="contact.html">Connect</a></li>
-    <li><a href="pages/beyond-the-resume.html" class="btn-nav">Beyond The Résumé →</a></li>
+    <li><a href="beyond-the-resume.html" class="btn-nav active">Beyond The Résumé →</a></li>
   </ul>
   <button class="hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
@@ -336,11 +336,10 @@
 </div>
 
 <!-- PROJECTS LIST -->
-<section class="projects-section">
+<section class="projects-section fade-up">
   <div class="projects-list">
-
     <!-- BTR -->
-    <a href="beyond-the-resume.html" class="project-row fade-up">
+    <a href="beyond-the-resume.html" class="project-row fade-up" data-status="soon">
       <div class="row-abbr">BTR</div>
       <div class="row-name">
         Beyond The Résumé
@@ -357,7 +356,7 @@
     </a>
 
     <!-- Placeholder -->
-    <div class="project-row placeholder">
+    <div class="project-row placeholder" data-status="live soon">
       <div class="row-abbr">BTF</div>
       <div class="row-name">
         More on the way
@@ -417,11 +416,44 @@
 
 <script src="../js/main.js"></script>
 <script>
-  // Filter buttons (client-side)
-  document.querySelectorAll('.filter-btn').forEach(btn => {
+  // Filter buttons with status-based filtering
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectRows = document.querySelectorAll('.project-row');
+
+  filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      // Update active button
+      filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+
+      // Get filter value
+      const filterValue = btn.textContent.trim().toLowerCase();
+
+      // Filter projects based on status and trigger fade-up animation
+      projectRows.forEach(row => {
+        const status = row.getAttribute('data-status');
+        let shouldShow = false;
+        
+        if (filterValue === 'all') {
+          shouldShow = true;
+        } else if (filterValue === 'live' && status.includes('live')) {
+          shouldShow = true;
+        } else if (filterValue === 'coming soon' && status.includes('soon')) {
+          shouldShow = true;
+        }
+
+        if (shouldShow) {
+          row.style.display = '';
+          // Trigger fade-up animation
+          row.classList.remove('visible');
+          // Force reflow to restart animation
+          void row.offsetWidth;
+          row.classList.add('visible');
+        } else {
+          row.style.display = 'none';
+          row.classList.remove('visible');
+        }
+      });
     });
   });
 </script>
