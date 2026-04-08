@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — Beyond The Frame</title>
+  <meta name="description" content="Get in touch with Beyond The Frame. Questions, feedback, or collaboration ideas welcome."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 7rem 4rem 5rem;
+      border-bottom: 0.5px solid var(--gold-dim);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero-glow {
+      position: absolute;
+      top: -30%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.045) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .page-hero-label {
+      font-size: 15px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .page-hero-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 0.5px;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+
+    .page-hero h1 {
+      font-family: 'Georgia', serif;
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 300;
+      line-height: 0.95;
+      color: var(--cream);
+      margin-bottom: 2rem;
+    }
+
+    .page-hero-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 480px;
+      line-height: 1.85;
+    }
+
+    /* ── CONTACT SECTION ── */
+    .contact-section {
+      padding: 6rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .contact-left {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .contact-method {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .contact-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .contact-value {
+      font-size: 18px;
+      color: var(--cream);
+      line-height: 1.6;
+    }
+
+    .contact-value a {
+      color: var(--gold-light);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+      transition: all 0.3s ease;
+    }
+
+    .contact-value a:hover {
+      color: var(--gold);
+      border-bottom: 1px solid var(--gold);
+    }
+
+    .contact-right {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .contact-intro {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.85;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      background: rgba(0,0,0,0.3);
+      border: 0.5px solid rgba(201,168,76,0.3);
+      color: var(--cream);
+      padding: 0.75rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: rgba(0,0,0,0.5);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-submit {
+      align-self: flex-start;
+      margin-top: 1rem;
+    }
+
+    .contact-cta {
+      padding: 4rem;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(201,168,76,0.05) 0%, rgba(201,168,76,0.02) 100%);
+      border: 0.5px solid rgba(201,168,76,0.2);
+      border-radius: 4px;
+      margin-top: 3rem;
+    }
+
+    .contact-cta h3 {
+      font-family: 'Georgia', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+
+    .contact-cta p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.8;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .page-hero {
+        padding: 4rem 2rem 3rem;
+      }
+
+      .page-hero h1 {
+        font-size: clamp(32px, 7vw, 48px);
+        margin-bottom: 1.5rem;
+      }
+
+      .page-hero-sub {
+        font-size: 14px;
+      }
+
+      .contact-section {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 4rem 2rem;
+      }
+
+      .contact-cta {
+        padding: 2rem;
+      }
+
+      .contact-cta h3 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../images/transparent-full.svg" alt="Beyond The Frame" class="logo-img">
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="contact.html">Connect</a></li>
+    <li><a href="beyond-the-resume.html" class="btn-nav active">Beyond The Résumé →</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-glow"></div>
+  <div class="page-hero-label">Contact</div>
+  <h1>Let's Connect</h1>
+  <p class="page-hero-sub">Have a question, idea, or want to collaborate? I'd love to hear from you. Reach out directly or use the form below.</p>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="contact-section">
+  <div class="contact-left">
+    <div class="contact-method">
+      <div class="contact-label">Primary Email</div>
+      <div class="contact-value">
+        <a href="mailto:beyondtfofficial@gmail.com">beyondtfofficial@gmail.com</a>
+      </div>
+    </div>
+
+    <div class="contact-method">
+      <div class="contact-label">For Business & Inquiries</div>
+      <div class="contact-value">
+        Partnerships, collaborations, and professional inquiries — I get back within 24–48 hours.
+      </div>
+    </div>
+
+    <div class="contact-method">
+      <div class="contact-label">Expected Response</div>
+      <div class="contact-value">
+        Most emails answered within 1–2 business days.
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-right">
+    <p class="contact-intro">
+      Whether you're interested in Beyond The Resume, have feedback on tools, want to discuss ideas, or just want to connect—I'm all ears. Send me a message below or reach out directly via email above.
+    </p>
+
+    <form class="contact-form" action="https://formspree.io/f/moqgernd" method="POST">
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="John" required/>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required/>
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" placeholder="What's this about?" required/>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Your message here..." required></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary form-submit">Send Message</button>
+    </form>
+
+    <div class="contact-cta">
+      <h3>Prefer Email?</h3>
+      <p>No problem. Send a direct message to <a href="mailto:beyondtfofficial@gmail.com" style="color: var(--gold); text-decoration: none; border: none;">beyondtfofficial@gmail.com</a> and I'll get back to you as soon as possible.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">Beyond The Frame</div>
+    <div class="footer-domain">beyondtheframe.vercel.app</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Robert A. Asumeng</div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

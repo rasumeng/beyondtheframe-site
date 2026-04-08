@@ -24,7 +24,7 @@
     }
 
     .page-hero-label {
-      font-size: 10px;
+      font-size: 15px;
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--gold);
@@ -141,7 +141,7 @@
     .project-row:hover .row-name { color: var(--gold-light); }
 
     .row-abbr {
-      font-size: 9px;
+      font-size: 12px;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--gold);
@@ -304,12 +304,15 @@
 
 <!-- NAV -->
 <nav>
-  <a href="../index.html" class="nav-logo">Beyond The <span>Frame</span></a>
+  <a href="../index.html" class="nav-logo">
+    <img src="../images/transparent-full.svg" alt="Beyond The Frame" class="logo-img">
+  </a>
   <ul class="nav-links">
-    <li><a href="../index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="projects.html" class="active">Projects</a></li>
-    <li><a href="beyond-the-resume.html" class="btn-nav">Beyond The Résumé →</a></li>
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="pages/about.html">About</a></li>
+    <li><a href="pages/projects.html">Projects</a></li>
+    <li><a href="contact.html">Connect</a></li>
+    <li><a href="pages/beyond-the-resume.html" class="btn-nav">Beyond The Résumé →</a></li>
   </ul>
   <button class="hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
@@ -353,22 +356,6 @@
       </div>
     </a>
 
-    <!-- BTN -->
-    <div class="project-row fade-up">
-      <div class="row-abbr">BTN</div>
-      <div class="row-name">
-        Beyond The News
-        <small>A newsletter that looks past the headline — and what it means for you.</small>
-      </div>
-      <div class="row-downloads">
-        <div class="row-dl-count">—</div>
-        <div class="row-dl-label">Subscribers</div>
-      </div>
-      <div class="row-status">
-        <span class="badge badge-soon">Coming Soon</span>
-      </div>
-    </div>
-
     <!-- Placeholder -->
     <div class="project-row placeholder">
       <div class="row-abbr">BTF</div>
@@ -393,7 +380,7 @@
       <h3>Have an idea for a project?</h3>
       <p>Beyond The Frame grows as the mission grows. If there's a tool you think could help people, Robert wants to hear about it.</p>
     </div>
-    <a href="mailto:hello@beyondtheframe.co" class="btn-outline">Get in Touch</a>
+    <a href="contact.html" class="btn-outline">Get in Touch</a>
   </div>
 </section>
 
@@ -417,14 +404,15 @@
 <footer>
   <div>
     <div class="footer-brand">Beyond The Frame</div>
-    <div class="footer-domain">beyondtheframe.co</div>
+    <div class="footer-domain">beyondtheframe.vercel.app</div>
   </div>
   <ul class="footer-links">
     <li><a href="../index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="projects.html">Projects</a></li>
+    <li><a href="contact.html">Contact</a></li>
   </ul>
-  <div class="footer-copy">© 2025 Robert A. Asumeng</div>
+  <div class="footer-copy">© 2026 Robert A. Asumeng</div>
 </footer>
 
 <script src="../js/main.js"></script>
