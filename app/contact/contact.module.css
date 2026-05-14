@@ -1,0 +1,216 @@
+.pageHero {
+  padding: 7rem 4rem 5rem;
+  border-bottom: 0.5px solid var(--gold-dim);
+  position: relative;
+  overflow: hidden;
+}
+
+.pageHeroGlow {
+  position: absolute;
+  top: -30%;
+  left: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(201,168,76,0.045) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.pageHeroLabel {
+  font-size: 15px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pageHeroLabel::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 0.5px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+
+.pageHero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 300;
+  line-height: 0.95;
+  color: var(--cream);
+  margin-bottom: 2rem;
+}
+
+.pageHeroSub {
+  font-size: 15px;
+  color: var(--text-muted);
+  max-width: 480px;
+  line-height: 1.85;
+}
+
+.contactSection {
+  padding: 6rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+.contactLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.contactMethod {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contactLabel {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.contactValue {
+  font-size: 18px;
+  color: var(--cream);
+  line-height: 1.6;
+}
+
+.contactValue a {
+  color: var(--gold-light);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201,168,76,0.3);
+  transition: all 0.3s ease;
+}
+
+.contactValue a:hover {
+  color: var(--gold);
+  border-bottom: 1px solid var(--gold);
+}
+
+.contactRight {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contactIntro {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.85;
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.formGroup input,
+.formGroup textarea {
+  background: rgba(0,0,0,0.3);
+  border: 0.5px solid rgba(201,168,76,0.3);
+  color: var(--cream);
+  padding: 0.75rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: rgba(0,0,0,0.5);
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.formSubmit {
+  align-self: flex-start;
+  margin-top: 1rem;
+}
+
+.contactCta {
+  padding: 4rem;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(201,168,76,0.05) 0%, rgba(201,168,76,0.02) 100%);
+  border: 0.5px solid rgba(201,168,76,0.2);
+  border-radius: 4px;
+  margin-top: 3rem;
+}
+
+.contactCta h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: 1rem;
+}
+
+.contactCta p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.8;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .pageHero {
+    padding: 4rem 2rem 3rem;
+  }
+
+  .pageHero h1 {
+    font-size: clamp(32px, 7vw, 48px);
+    margin-bottom: 1.5rem;
+  }
+
+  .pageHeroSub {
+    font-size: 14px;
+  }
+
+  .contactSection {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 4rem 2rem;
+  }
+
+  .contactCta {
+    padding: 2rem;
+  }
+
+  .contactCta h3 {
+    font-size: 20px;
+  }
+}

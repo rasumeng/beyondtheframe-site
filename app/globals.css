@@ -33,7 +33,6 @@ body {
 a { text-decoration: none; color: inherit; }
 img { display: block; max-width: 100%; }
 
-/* ─── NAV ─── */
 nav {
   position: sticky;
   top: 0;
@@ -116,12 +115,12 @@ nav {
   transition: all 0.25s;
 }
 
-/* ─── HERO LOGO ─── */
 .hero-logo {
   max-width: 400px;
   height: auto;
   margin-bottom: 1.5rem;
 }
+
 .hero-byline {
   font-size: 12px;
   letter-spacing: 0.15em;
@@ -130,7 +129,7 @@ nav {
   margin-bottom: 1.5rem;
   font-weight: 400;
 }
-/* ─── BUTTONS ─── */
+
 .btn-primary {
   display: inline-block;
   padding: 0.85rem 2.25rem;
@@ -165,7 +164,6 @@ nav {
 
 .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
 
-/* ─── SHARED SECTION STYLES ─── */
 .section-label {
   font-size: 15px;
   letter-spacing: 0.25em;
@@ -196,7 +194,6 @@ nav {
   max-width: 560px;
 }
 
-/* ─── GOLD LINE DIVIDER ─── */
 .gold-line {
   width: 48px;
   height: 0.5px;
@@ -205,7 +202,6 @@ nav {
   margin: 2rem 0;
 }
 
-/* ─── FOOTER ─── */
 footer {
   padding: 3rem 4rem;
   border-top: 0.5px solid var(--gold-dim);
@@ -255,7 +251,6 @@ footer {
   text-align: right;
 }
 
-/* ─── RESPONSIVE ─── */
 @media (max-width: 768px) {
   nav { padding: 1.25rem 1.5rem; }
   .nav-links { display: none; }
@@ -281,7 +276,6 @@ footer {
   .footer-links { flex-wrap: wrap; }
 }
 
-/* ─── ANIMATIONS ─── */
 .fade-up {
   opacity: 0;
   transform: translateY(24px);
