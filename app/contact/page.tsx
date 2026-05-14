@@ -1,8 +1,55 @@
 'use client';
 
+import { useState } from 'react';
 import styles from './contact.module.css';
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name || formData.email || 'Anonymous',
+          message: `${formData.subject}\n\n${formData.message}`,
+          type: 'general',
+          email: formData.email || null,
+        })
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <>
       <section className={styles.pageHero}>
@@ -43,28 +90,77 @@ export default function Contact() {
             Whether you're interested in Beyond The Resume, have feedback on tools, want to discuss ideas, or just want to connect—I'm all ears. Send me a message below or reach out directly via email above.
           </p>
 
-          <form className={styles.contactForm} action="https://formspree.io/f/xeepdala" method="POST">
+          <form className={styles.contactForm} onSubmit={handleSubmit}>
             <div className={styles.formGroup}>
               <label htmlFor="name">Your Name</label>
-              <input type="text" id="name" name="name" placeholder="John" required />
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                placeholder="John" 
+                value={formData.name}
+                onChange={handleChange}
+                required 
+              />
             </div>
 
             <div className={styles.formGroup}>
               <label htmlFor="email">Your Email</label>
-              <input type="email" id="email" name="email" placeholder="you@example.com" required />
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                placeholder="you@example.com" 
+                value={formData.email}
+                onChange={handleChange}
+                required 
+              />
             </div>
 
             <div className={styles.formGroup}>
               <label htmlFor="subject">Subject</label>
-              <input type="text" id="subject" name="subject" placeholder="What's this about?" required />
+              <input 
+                type="text" 
+                id="subject" 
+                name="subject" 
+                placeholder="What's this about?" 
+                value={formData.subject}
+                onChange={handleChange}
+                required 
+              />
             </div>
 
             <div className={styles.formGroup}>
               <label htmlFor="message">Message</label>
-              <textarea id="message" name="message" placeholder="Your message here..." required></textarea>
+              <textarea 
+                id="message" 
+                name="message" 
+                placeholder="Your message here..." 
+                value={formData.message}
+                onChange={handleChange}
+                required
+              ></textarea>
             </div>
 
-            <button type="submit" className={`btn-primary ${styles.formSubmit}`}>Send Message</button>
+            <button 
+              type="submit" 
+              className={`btn-primary ${styles.formSubmit}`}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Sending...' : 'Send Message'}
+            </button>
+
+            {submitStatus === 'success' && (
+              <p style={{ color: '#4ade80', marginTop: '1rem' }}>
+                Message sent successfully! Thank you for reaching out.
+              </p>
+            )}
+
+            {submitStatus === 'error' && (
+              <p style={{ color: '#f87171', marginTop: '1rem' }}>
+                Failed to send message. Please try again or email directly.
+              </p>
+            )}
           </form>
 
           <div className={styles.contactCta}>
