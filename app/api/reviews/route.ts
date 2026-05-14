@@ -3,10 +3,28 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const reviews = await redis.get('btr:reviews') || [];
-    return NextResponse.json({ reviews });
+    console.log('[API] Fetching reviews from Upstash...');
+    const reviews = await redis.get('btr:reviews');
+    console.log('[API] Raw reviews data:', reviews);
+    console.log('[API] Type of reviews:', typeof reviews);
+    
+    // Handle different data formats
+    let parsedReviews = [];
+    if (Array.isArray(reviews)) {
+      parsedReviews = reviews;
+    } else if (typeof reviews === 'string') {
+      try {
+        parsedReviews = JSON.parse(reviews);
+      } catch (e) {
+        console.error('[API] Failed to parse reviews string:', e);
+        parsedReviews = [];
+      }
+    }
+    
+    console.log('[API] Parsed reviews count:', parsedReviews.length);
+    return NextResponse.json({ reviews: parsedReviews });
   } catch (error) {
-    console.error('Failed to fetch reviews:', error);
+    console.error('[API] Failed to fetch reviews:', error);
     return NextResponse.json({ reviews: [], error: 'Failed to fetch reviews' }, { status: 500 });
   }
 }

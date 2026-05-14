@@ -11,6 +11,9 @@ interface Review {
   name: string;
   text: string;
   date: string;
+  type?: string;
+  rating?: number | null;
+  email?: string | null;
 }
 
 export default function BTRPage() {
@@ -30,8 +33,11 @@ export default function BTRPage() {
 
   const fetchReviews = async () => {
     try {
+      console.log('[BTR Page] Fetching reviews...');
       const res = await fetch('/api/reviews');
       const data = await res.json();
+      console.log('[BTR Page] API response:', data);
+      console.log('[BTR Page] Reviews count:', data.reviews?.length || 0);
       setReviews(data.reviews || []);
     } catch (e) {
       console.error('Failed to load reviews:', e);
@@ -252,6 +258,13 @@ export default function BTRPage() {
           ) : reviews.length > 0 ? (
             reviews.map((review) => (
               <div key={review.id} className={`${styles.reviewCard} fade-up`}>
+                {review.rating && (
+                  <div className={styles.reviewRating}>
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <span key={star} className={star <= review.rating! ? styles.starFilled : styles.starEmpty}>★</span>
+                    ))}
+                  </div>
+                )}
                 <p className={styles.reviewText}>&ldquo;{review.text}&rdquo;</p>
                 <div className={styles.reviewAuthor}>
                   — {review.name}
