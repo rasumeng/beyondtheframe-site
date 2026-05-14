@@ -36,9 +36,21 @@ export default function BTRPage() {
       console.log('[BTR Page] Fetching reviews...');
       const res = await fetch('/api/reviews');
       const data = await res.json();
-      console.log('[BTR Page] API response:', data);
-      console.log('[BTR Page] Reviews count:', data.reviews?.length || 0);
-      setReviews(data.reviews || []);
+      console.log('[BTR Page] API response:', JSON.stringify(data));
+      
+      // Handle different response formats
+      let reviewsArray = [];
+      if (Array.isArray(data)) {
+        reviewsArray = data;
+      } else if (data.reviews) {
+        reviewsArray = data.reviews;
+      } else if (data.result) {
+        reviewsArray = Array.isArray(data.result) ? data.result : [];
+      }
+      
+      console.log('[BTR Page] Parsed reviews:', JSON.stringify(reviewsArray));
+      console.log('[BTR Page] Reviews count:', reviewsArray.length);
+      setReviews(reviewsArray);
     } catch (e) {
       console.error('Failed to load reviews:', e);
     } finally {
@@ -256,22 +268,25 @@ export default function BTRPage() {
           {loading ? (
             <div className={styles.noReviews}>Loading reviews...</div>
           ) : reviews.length > 0 ? (
-            reviews.map((review) => (
-              <div key={review.id} className={`${styles.reviewCard} fade-up`}>
-                {review.rating && (
-                  <div className={styles.reviewRating}>
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <span key={star} className={star <= review.rating! ? styles.starFilled : styles.starEmpty}>★</span>
-                    ))}
+            reviews.map((review, index) => {
+              console.log(`[BTR Page] Rendering review ${index}:`, JSON.stringify(review));
+              return (
+                <div key={review.id || index} className={`${styles.reviewCard} fade-up`}>
+                  {review.rating && (
+                    <div className={styles.reviewRating}>
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <span key={star} className={star <= (review.rating || 0) ? styles.starFilled : styles.starEmpty}>★</span>
+                      ))}
+                    </div>
+                  )}
+                  <p className={styles.reviewText}>&ldquo;{review.text || 'No text'}&rdquo;</p>
+                  <div className={styles.reviewAuthor}>
+                    — {review.name || 'Anonymous'}
+                    <span className={styles.reviewDate}>{review.date || ''}</span>
                   </div>
-                )}
-                <p className={styles.reviewText}>&ldquo;{review.text}&rdquo;</p>
-                <div className={styles.reviewAuthor}>
-                  — {review.name}
-                  <span className={styles.reviewDate}>{review.date}</span>
                 </div>
-              </div>
-            ))
+              );
+            })
           ) : (
             <div className={styles.noReviews}>
               No reviews yet. Be the first to share your thoughts!
