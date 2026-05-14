@@ -57,13 +57,14 @@
 }
 
 .filterBar {
-  padding: 2rem 4rem;
+  padding: 1.5rem 4rem;
   display: flex;
   align-items: center;
   gap: 0.75rem;
   border-bottom: 0.5px solid var(--gold-dim);
   background: var(--dark-2);
   flex-wrap: wrap;
+  overflow-x: auto;
 }
 
 .filterLabel {
@@ -96,6 +97,8 @@
 
 .projectsSection {
   padding: 0 4rem 5rem 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .projectsList {
@@ -138,7 +141,8 @@
 }
 
 .rowAbbr {
-  font-size: 12px;
+  font-size: 20px;
+  padding: 20px 20px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold);
@@ -185,34 +189,39 @@
 
 .rowStatus {
   display: flex;
+  padding: 0.5rem 0.5rem;
   align-items: center;
   justify-content: flex-end;
   gap: 1rem;
 }
 
 .badge {
-  font-size: 9px;
-  letter-spacing: 0.1em;
+  font-size: 11px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 5px 12px;
+  padding: 8px 16px;
+  white-space: nowrap;
 }
 
 .badgeSoon {
   background: rgba(201,168,76,0.08);
+  padding: 8px 16px;
   color: var(--gold);
   border: 0.5px solid rgba(201,168,76,0.28);
 }
 
 .badgeLive {
   background: rgba(97,196,125,0.08);
+  padding: 8px 16px;
   color: #7DD4A0;
   border: 0.5px solid rgba(97,196,125,0.28);
 }
 
 .badgeProgress {
-  background: rgba(100,130,200,0.08);
-  color: #8AAAE0;
-  border: 0.5px solid rgba(100,130,200,0.28);
+  background: rgba(120,150,220,0.15);
+  padding: 8px 16px;
+  color: #A0C0F0;
+  border: 0.5px solid rgba(120,150,220,0.4);
 }
 
 .rowArrow {
@@ -290,10 +299,21 @@
 
 @media (max-width: 900px) {
   .pageHero { padding: 5rem 1.5rem 4rem; }
-  .filterBar { padding: 1.5rem; }
-  .projectsSection { padding: 3rem 1.5rem; }
-  .projectRow { grid-template-columns: 1fr; gap: 0.75rem; padding: 2rem 0; }
-  .rowDownloads { text-align: left; }
-  .rowStatus { justify-content: flex-start; }
+  .filterBar { padding: 1rem 1.5rem; }
+  .projectsSection { padding: 2rem 1.5rem; }
+  .projectRow { 
+    grid-template-columns: 1fr; 
+    gap: 0.75rem; 
+    padding: 1.5rem 0;
+    margin: 0 -1.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .projectRow::before { display: none; }
+  .rowAbbr { font-size: 10px; }
+  .rowName { font-size: 22px; }
+  .rowName small { font-size: 11px; }
+  .rowDownloads { text-align: left; margin-top: 0.5rem; }
+  .rowStatus { justify-content: flex-start; margin-top: 0.5rem; }
   .statsRow { padding: 3rem 1.5rem; gap: 3rem; }
 }

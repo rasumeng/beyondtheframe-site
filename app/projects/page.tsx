@@ -113,6 +113,7 @@ export default function Projects() {
             </div>
             <div className={styles.rowStatus}>
               <span className={`${styles.badge} ${styles.badgeProgress}`}>In Progress</span>
+              <span className={styles.rowArrow} style={{ opacity: 0, visibility: 'hidden' }}>→</span>
             </div>
           </div>
         </div>

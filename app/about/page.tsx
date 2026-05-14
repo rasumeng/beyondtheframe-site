@@ -59,7 +59,7 @@ export default function About() {
           <h2>Going against<br/>the <em>grain.</em></h2>
           <p>Beyond The Frame exists because Robert A. Asumeng believes most people are handed a canvas with the frame already built around it — and taught that anything beyond it isn't theirs to reach.</p>
           <div className={styles.bioPlaceholder}>
-            <p>Robert's personal bio will live here. This space is reserved — return soon to read more about his story, his work, and what drives everything behind Beyond The Frame.</p>
+            <p>Robert A. Asumeng is a Computer Science major that focuses on Artificial Intelligence with a hope to become an AI engineer and Researcher. Born and raised in St. Joseph Michigan and raised in Dallas, Texas, with Ghanian roots, he combines analytical thinking, proficient communication, and faith driver leadership, Currently, he serves in leadership roles within the ColorStack (UTA Chapter) and National Society of Black Engineers (UTA Chapter) and is known for his integrity, calm mindset, and ale to solve problems thoughtfully. Driven by the desire to mentor others and construct opportunities for students, his goal is to use AI to innovate, lead, and give back to his community.</p>
           </div>
           <p>What drives every project under this brand is a conviction rooted in faith: that we are called to benefit others the way Christ benefited us — freely, genuinely, and without condition. Every tool on this site is built to be accessible to everyone.</p>
         </div>
