@@ -327,6 +327,8 @@
   border: 0.5px solid var(--gold-dim);
   padding: 2rem;
   background: var(--dark-2);
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 .reviewRating {
