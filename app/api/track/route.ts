@@ -11,7 +11,7 @@ export async function GET() {
     } else if (typeof metrics === 'string') {
       try {
         parsedMetrics = JSON.parse(metrics);
-      } catch (e) {
+      } catch {
         parsedMetrics = [];
       }
     }
@@ -39,44 +39,18 @@ export async function POST(request: NextRequest) {
       ts: new Date().toISOString(),
     };
 
-    // Use raw REST API with proper Upstash pipeline format
-    const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || '';
-    const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || '';
-
-    // Read existing value as raw text
-    const getRes = await fetch(`${url}/get/btr:metrics`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const getText = await getRes.text();
+    const raw = await redis.get('btr:metrics');
     let existing: MetricEntry[] = [];
-    try {
-      const getParsed = JSON.parse(getText);
-      if (getParsed.result && typeof getParsed.result === 'string') {
-        existing = JSON.parse(getParsed.result);
-      }
-    } catch {
-      // skip if empty or invalid
+    if (Array.isArray(raw)) {
+      existing = raw;
+    } else if (typeof raw === 'string') {
+      try { existing = JSON.parse(raw); } catch { /* skip malformed */ }
     }
 
-    const updated = [newEntry, ...existing];
-
-    // Write - Upstash REST API expects value as raw JSON in the body
-    const setRes = await fetch(`${url}/set/btr:metrics`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updated),
-    });
-    const setText = await setRes.text();
-
-    // Try to parse but don't crash on failure
-    let setParsed: unknown;
-    try { setParsed = JSON.parse(setText); } catch { setParsed = setText; }
+    await redis.set('btr:metrics', JSON.stringify([newEntry, ...existing]));
 
     return NextResponse.json(
-      { success: true, entry: newEntry, response: setParsed },
+      { success: true, entry: newEntry },
       {
         status: 201,
         headers: {
