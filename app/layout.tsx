@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 export const metadata: Metadata = {
   title: 'Beyond The Frame',
   description: 'Free tools and projects built by Robert A. Asumeng under the Beyond The Frame brand.',
+  icons: { icon: '/icon.svg' },
 };
 
 export default function RootLayout({
