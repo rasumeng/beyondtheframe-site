@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const raw = await redis.lrange('btf:tracking:events', 0, -1);
+    const raw = await redis.lrange('btr:metrics', 0, -1);
 
     const events: { event: string; label?: string; ts: string }[] = [];
     for (const item of raw) {

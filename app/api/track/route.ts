@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     };
 
     console.log('[Track]', JSON.stringify(entry));
-    await redis.lpush('btf:tracking:events', JSON.stringify(entry));
+    await redis.lpush('btr:metrics', JSON.stringify(entry));
 
     return NextResponse.json({ success: true }, {
       status: 200,
