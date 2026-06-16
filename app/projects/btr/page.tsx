@@ -76,7 +76,7 @@ export default function BTRPage() {
   const handleDownload = () => {
     trackDownload('btr', 'Beyond The Résumé');
     setDownloads(prev => prev + 1);
-    alert('Beyond The Résumé is coming soon! Sign up below to be notified at launch.');
+    window.location.href = '/downloads/BTFResume-1.0.0-Portable.zip';
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -147,7 +147,7 @@ export default function BTRPage() {
         <div className={`${styles.heroCard} fade-up`}>
           <div className={styles.heroCardTop}>
             <div className={styles.heroCardAbbr}>BTR</div>
-            <div className={styles.heroCardBadge}>Coming Soon</div>
+            <div className={styles.heroCardBadge}>Available</div>
           </div>
           <div className={styles.heroCardStats}>
             <div>
@@ -161,11 +161,11 @@ export default function BTRPage() {
               <div className={styles.cardStatLabel}>Free</div>
             </div>
             <div>
-              <div className={styles.cardStatNum}>0</div>
+              <div className={styles.cardStatNum}>1.0</div>
               <div className={styles.cardStatLabel}>Version</div>
             </div>
             <div>
-              <div className={styles.cardStatNum}>—</div>
+              <div className={styles.cardStatNum}>May 2026</div>
               <div className={styles.cardStatLabel}>Launch Date</div>
             </div>
           </div>
