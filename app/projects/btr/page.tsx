@@ -21,6 +21,8 @@ export default function BTRPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [downloads, setDownloads] = useState(0);
+  const [metrics, setMetrics] = useState<{ total: number; byEvent: Record<string, number>; byLabel: Record<string, number> } | null>(null);
+  const [metricsLoading, setMetricsLoading] = useState(true);
   const [formData, setFormData] = useState({ name: '', message: '' });
   const [formStatus, setFormStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({ type: null, message: '' });
 
@@ -28,8 +30,21 @@ export default function BTRPage() {
 
   useEffect(() => {
     fetchReviews();
+    fetchMetrics();
     setDownloads(getProjectDownloads('btr'));
   }, []);
+
+  const fetchMetrics = async () => {
+    try {
+      const res = await fetch('/api/track/stats');
+      const data = await res.json();
+      if (data.success) setMetrics(data);
+    } catch (e) {
+      console.error('Failed to load metrics:', e);
+    } finally {
+      setMetricsLoading(false);
+    }
+  };
 
   const fetchReviews = async () => {
     try {
@@ -255,6 +270,45 @@ export default function BTRPage() {
             <div className={styles.bigCountLabel}>Downloads &amp; counting</div>
           </div>
         </div>
+      </section>
+
+      {/* ── METRICS ── */}
+      <section className={styles.metricsSection}>
+        <p className="section-label">Usage Analytics</p>
+        <h2>
+          <em>Metrics.</em>
+        </h2>
+        {metricsLoading ? (
+          <div className={styles.noReviews}>Loading metrics...</div>
+        ) : metrics && metrics.total > 0 ? (
+          <>
+            <div className={styles.metricsGrid}>
+              <div className={`${styles.metricCard} fade-up`}>
+                <div className={styles.metricNum}>{metrics.total}</div>
+                <div className={styles.metricLabel}>Total Events</div>
+              </div>
+              {Object.entries(metrics.byEvent).slice(0, 3).map(([event, count]) => (
+                <div key={event} className={`${styles.metricCard} fade-up`}>
+                  <div className={styles.metricNum}>{count}</div>
+                  <div className={styles.metricLabel}>{event.replace(/_/g, ' ')}</div>
+                </div>
+              ))}
+            </div>
+            <div className={styles.metricBreakdown}>
+              <h3>By Event Type</h3>
+              <div className={styles.breakdownGrid}>
+                {Object.entries(metrics.byEvent).map(([event, count]) => (
+                  <div key={event} className={styles.breakdownItem}>
+                    <span className={styles.breakdownEvent}>{event.replace(/_/g, ' ')}</span>
+                    <span className={styles.breakdownCount}>{count}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className={styles.noReviews}>No events tracked yet. Events will appear once the resume-ai web app starts sending data.</div>
+        )}
       </section>
 
       {/* ── REVIEWS ── */}
