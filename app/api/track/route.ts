@@ -45,9 +45,6 @@ export async function POST(request: NextRequest) {
       ts: new Date().toISOString(),
     };
 
-    // Test: try a simple set first to verify write access
-    await redis.set('btr:metrics:ping', 'ok');
-
     const raw = await redis.get('btr:metrics');
     let existing: MetricEntry[] = [];
     if (Array.isArray(raw)) {
@@ -57,7 +54,7 @@ export async function POST(request: NextRequest) {
     }
     const updated = [newEntry, ...existing];
 
-    await redis.set('btr:metrics', updated);
+    await redis.set('btr:metrics', JSON.stringify(updated));
 
     return NextResponse.json(
       { success: true, entry: newEntry },

@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     }
     const updated = [newReview, ...existing];
 
-    await redis.set('btr:reviews', updated);
+    await redis.set('btr:reviews', JSON.stringify(updated));
 
     return NextResponse.json(
       { success: true, review: newReview },
