@@ -6,6 +6,18 @@ import { useFadeUpObserver } from '@/lib/animations';
 import { trackDownload, getProjectDownloads } from '@/lib/analytics';
 import styles from './btr.module.css';
 
+const METRICS_CONFIG: Record<string, { label: string; desc: string; icon: string }> = {
+  resume_uploaded: { label: 'Resumes Uploaded', desc: 'Resumes brought into the app', icon: '📄' },
+  grade_resume: { label: 'Resumes Graded', desc: 'AI-powered resume assessments', icon: '📊' },
+  polish: { label: 'Resumes Polished', desc: 'AI-enhanced resume content', icon: '✨' },
+  fit_analysis: { label: 'Fit Analyses', desc: 'Job match assessments performed', icon: '🎯' },
+  tailor: { label: 'Resumes Tailored', desc: 'Customized for job descriptions', icon: '📝' },
+  polish_downloaded: { label: 'Polished Exports', desc: 'Polished resumes downloaded', icon: '⬇️' },
+  tailor_downloaded: { label: 'Tailored Exports', desc: 'Tailored resumes downloaded', icon: '⬇️' },
+};
+
+const DISPLAY_EVENTS = Object.keys(METRICS_CONFIG);
+
 interface Review {
   id: number;
   name: string;
@@ -274,38 +286,27 @@ export default function BTRPage() {
 
       {/* ── METRICS ── */}
       <section className={styles.metricsSection}>
-        <p className="section-label">Usage Analytics</p>
+        <p className="section-label">Real Usage</p>
         <h2>
-          <em>Metrics.</em>
+          Live <em>Metrics.</em>
         </h2>
         {metricsLoading ? (
           <div className={styles.noReviews}>Loading metrics...</div>
         ) : metrics && metrics.total > 0 ? (
-          <>
-            <div className={styles.metricsGrid}>
-              <div className={`${styles.metricCard} fade-up`}>
-                <div className={styles.metricNum}>{metrics.total}</div>
-                <div className={styles.metricLabel}>Total Events</div>
-              </div>
-              {Object.entries(metrics.byEvent).slice(0, 3).map(([event, count]) => (
-                <div key={event} className={`${styles.metricCard} fade-up`}>
+          <div className={styles.metricsGrid}>
+            {DISPLAY_EVENTS.map((key) => {
+              const cfg = METRICS_CONFIG[key];
+              const count = metrics.byEvent[key] || 0;
+              return (
+                <div key={key} className={`${styles.metricCard} fade-up`}>
+                  <span className={styles.metricIcon}>{cfg.icon}</span>
                   <div className={styles.metricNum}>{count}</div>
-                  <div className={styles.metricLabel}>{event.replace(/_/g, ' ')}</div>
+                  <div className={styles.metricLabel}>{cfg.label}</div>
+                  <div className={styles.metricDesc}>{cfg.desc}</div>
                 </div>
-              ))}
-            </div>
-            <div className={styles.metricBreakdown}>
-              <h3>By Event Type</h3>
-              <div className={styles.breakdownGrid}>
-                {Object.entries(metrics.byEvent).map(([event, count]) => (
-                  <div key={event} className={styles.breakdownItem}>
-                    <span className={styles.breakdownEvent}>{event.replace(/_/g, ' ')}</span>
-                    <span className={styles.breakdownCount}>{count}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </>
+              );
+            })}
+          </div>
         ) : (
           <div className={styles.noReviews}>No events tracked yet. Events will appear once the resume-ai web app starts sending data.</div>
         )}

@@ -348,6 +348,21 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-dim);
+  margin-bottom: 0.25rem;
+}
+
+.metricIcon {
+  font-size: 20px;
+  display: block;
+  margin-bottom: 0.75rem;
+  opacity: 0.85;
+}
+
+.metricDesc {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  opacity: 0.7;
 }
 
 .metricBreakdown {
@@ -545,6 +560,8 @@
   .featuresGrid { grid-template-columns: 1fr; }
   .downloadSection { padding: 4rem 1.5rem; }
   .downloadBox { grid-template-columns: 1fr; gap: 2.5rem; }
+  .metricsSection { padding: 4rem 1.5rem; }
+  .metricsGrid { grid-template-columns: repeat(2, 1fr); }
   .reviewsSection { padding: 4rem 1.5rem; }
   .feedbackSection { padding: 4rem 1.5rem; }
   .feedbackForm { flex-direction: column; }
