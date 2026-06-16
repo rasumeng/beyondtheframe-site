@@ -45,7 +45,13 @@ export async function POST(request: NextRequest) {
       ts: new Date().toISOString(),
     };
 
-    const existing = (await redis.get('btr:metrics') as MetricEntry[] | null) || [];
+    const raw = await redis.get('btr:metrics');
+    let existing: MetricEntry[] = [];
+    if (Array.isArray(raw)) {
+      existing = raw;
+    } else if (typeof raw === 'string') {
+      try { existing = JSON.parse(raw); } catch { /* skip malformed */ }
+    }
     const updated = [newEntry, ...existing];
 
     await redis.set('btr:metrics', updated);

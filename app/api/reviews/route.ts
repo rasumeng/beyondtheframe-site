@@ -48,7 +48,13 @@ export async function POST(request: NextRequest) {
       email: email || null,
     };
 
-    const existing = (await redis.get('btr:reviews') as Review[] | null) || [];
+    const raw = await redis.get('btr:reviews');
+    let existing: Review[] = [];
+    if (Array.isArray(raw)) {
+      existing = raw;
+    } else if (typeof raw === 'string') {
+      try { existing = JSON.parse(raw); } catch { /* skip malformed */ }
+    }
     const updated = [newReview, ...existing];
 
     await redis.set('btr:reviews', updated);
