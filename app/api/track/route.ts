@@ -45,16 +45,34 @@ export async function POST(request: NextRequest) {
       ts: new Date().toISOString(),
     };
 
-    const raw = await redis.get('btr:metrics');
+    // Use raw REST API to bypass SDK serialization
+    const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || '';
+    const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || '';
+
+    // Read existing
+    const getRes = await fetch(`${url}/get/btr:metrics`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const getData = await getRes.json() as { result?: string | null };
+    const rawResult = getData.result;
     let existing: MetricEntry[] = [];
-    if (Array.isArray(raw)) {
-      existing = raw;
-    } else if (typeof raw === 'string') {
-      try { existing = JSON.parse(raw); } catch { /* skip malformed */ }
+    if (rawResult) {
+      try { existing = JSON.parse(rawResult as string); } catch { /* skip */ }
     }
+
     const updated = [newEntry, ...existing];
 
-    await redis.set('btr:metrics', JSON.stringify(updated));
+    // Write
+    const setRes = await fetch(`${url}/set/btr:metrics`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updated),
+    });
+    const setData = await setRes.json();
+    console.log('[API] SET response:', setData);
 
     return NextResponse.json(
       { success: true, entry: newEntry },
