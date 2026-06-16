@@ -1,42 +1,69 @@
 import { redis } from '@/lib/redis';
 import { NextRequest, NextResponse } from 'next/server';
 
+export async function GET() {
+  try {
+    console.log('[API] Fetching metrics from Upstash...');
+    const metrics = await redis.get('btr:metrics');
+    console.log('[API] Raw metrics data:', metrics);
+    console.log('[API] Type of metrics:', typeof metrics);
+
+    let parsedMetrics = [];
+    if (Array.isArray(metrics)) {
+      parsedMetrics = metrics;
+    } else if (typeof metrics === 'string') {
+      try {
+        parsedMetrics = JSON.parse(metrics);
+      } catch (e) {
+        console.error('[API] Failed to parse metrics string:', e);
+        parsedMetrics = [];
+      }
+    }
+
+    console.log('[API] Parsed metrics count:', parsedMetrics.length);
+    return NextResponse.json({ metrics: parsedMetrics });
+  } catch (error) {
+    console.error('[API] Failed to fetch metrics:', error);
+    return NextResponse.json({ metrics: [], error: 'Failed to fetch metrics' }, { status: 500 });
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { event, label, meta } = body || {};
+    const { event, label, meta } = body;
 
     if (!event) {
-      return NextResponse.json(
-        { success: false, error: 'Missing event name' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Event name is required' }, { status: 400 });
     }
 
-    const entry = {
+    const newEntry = {
+      id: Date.now(),
       event,
       label: label || null,
       meta: meta || null,
       ts: new Date().toISOString(),
     };
 
-    console.log('[Track]', JSON.stringify(entry));
-    await redis.lpush('btr:metrics', JSON.stringify(entry));
+    const existing = (await redis.get('btr:metrics') as MetricEntry[] | null) || [];
+    const updated = [newEntry, ...existing];
 
-    return NextResponse.json({ success: true }, {
-      status: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
-    });
-  } catch (error) {
-    console.error('[Track] Error:', error);
+    await redis.set('btr:metrics', updated);
+
     return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
+      { success: true, entry: newEntry },
+      {
+        status: 201,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type',
+        },
+      }
     );
+  } catch (error) {
+    console.error('Failed to add metric:', error);
+    return NextResponse.json({ error: 'Failed to add metric' }, { status: 500 });
   }
 }
 
@@ -48,4 +75,12 @@ export async function OPTIONS() {
       'Access-Control-Allow-Headers': 'Content-Type',
     },
   });
+}
+
+interface MetricEntry {
+  id: number;
+  event: string;
+  label?: string | null;
+  meta?: Record<string, unknown> | null;
+  ts: string;
 }

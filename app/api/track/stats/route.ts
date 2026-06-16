@@ -3,13 +3,13 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const raw = await redis.lrange('btr:metrics', 0, -1);
+    const raw = await redis.get('btr:metrics');
 
-    const events: { event: string; label?: string; ts: string }[] = [];
-    for (const item of raw) {
-      if (typeof item === 'string') {
-        try { events.push(JSON.parse(item)); } catch { /* skip malformed */ }
-      }
+    let events: { event: string; label?: string; ts: string }[] = [];
+    if (Array.isArray(raw)) {
+      events = raw;
+    } else if (typeof raw === 'string') {
+      try { events = JSON.parse(raw); } catch { /* skip malformed */ }
     }
 
     const byEvent: Record<string, number> = {};
