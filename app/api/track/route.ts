@@ -45,6 +45,9 @@ export async function POST(request: NextRequest) {
       ts: new Date().toISOString(),
     };
 
+    // Test: try a simple set first to verify write access
+    await redis.set('btr:metrics:ping', 'ok');
+
     const raw = await redis.get('btr:metrics');
     let existing: MetricEntry[] = [];
     if (Array.isArray(raw)) {
@@ -69,7 +72,8 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     console.error('Failed to add metric:', error);
-    return NextResponse.json({ error: 'Failed to add metric' }, { status: 500 });
+    const msg = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json({ error: 'Failed to add metric', detail: msg }, { status: 500 });
   }
 }
 
