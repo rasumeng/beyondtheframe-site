@@ -298,7 +298,7 @@ export default function BTRPage() {
               const cfg = METRICS_CONFIG[key];
               const count = metrics.byEvent[key] || 0;
               return (
-                <div key={key} className={`${styles.metricCard} fade-up`}>
+                <div key={key} className={styles.metricCard}>
                   <span className={styles.metricIcon}>{cfg.icon}</span>
                   <div className={styles.metricNum}>{count}</div>
                   <div className={styles.metricLabel}>{cfg.label}</div>
