@@ -1,20 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useFadeUpObserver } from '@/lib/animations';
-import { getTotalDownloads } from '@/lib/analytics';
 import styles from './projects.module.css';
 
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState('all');
-  const [totalDownloads, setTotalDownloads] = useState(0);
   
   useFadeUpObserver();
-  
-  useEffect(() => {
-    setTotalDownloads(getTotalDownloads());
-  }, []);
 
   const projects = [
     {
@@ -85,18 +79,14 @@ export default function Projects() {
 
       <section className={`projects-section fade-up`}>
         <div className={styles.projectsList}>
-          <Link href="/projects/btr" className={`${styles.projectRow} fade-up`} data-status="soon">
+          <Link href="/projects/btr" className={`${styles.projectRow} fade-up`} data-status="live">
             <div className={styles.rowAbbr}>BTR</div>
             <div className={styles.rowName}>
               Beyond The Résumé
               <small>A free resume tool — because you're more than your bullet points.</small>
             </div>
-            <div className={styles.rowDownloads}>
-              <div className={styles.rowDlCount} data-downloads="btr">0</div>
-              <div className={styles.rowDlLabel}>Downloads</div>
-            </div>
             <div className={styles.rowStatus}>
-              <span className={`${styles.badge} ${styles.badgeSoon}`}>Coming Soon</span>
+              <span className={`${styles.badge} ${styles.badgeLive}`}>Live</span>
               <span className={styles.rowArrow}>→</span>
             </div>
           </Link>
@@ -106,10 +96,6 @@ export default function Projects() {
             <div className={styles.rowName}>
               More on the way
               <small>New tools and projects in development.</small>
-            </div>
-            <div className={styles.rowDownloads}>
-              <div className={styles.rowDlCount}>—</div>
-              <div className={styles.rowDlLabel}>—</div>
             </div>
             <div className={styles.rowStatus}>
               <span className={`${styles.badge} ${styles.badgeProgress}`}>In Progress</span>
@@ -129,8 +115,8 @@ export default function Projects() {
 
       <div className={styles.statsRow}>
         <div className="fade-up">
-          <div className={styles.statNum}>{totalDownloads}<span>+</span></div>
-          <div className={styles.statLabel}>Total Downloads</div>
+          <div className={styles.statNum}>pip <span>install</span></div>
+          <div className={styles.statLabel}>One Command to Start</div>
         </div>
         <div className="fade-up">
           <div className={styles.statNum}>2<span>+</span></div>

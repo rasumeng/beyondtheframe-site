@@ -246,6 +246,16 @@
   border: 0.5px solid rgba(201,168,76,0.28);
 }
 
+.badgeLive {
+  background: rgba(97,196,125,0.08);
+  padding: 4px 10px;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7DD4A0;
+  border: 0.5px solid rgba(97,196,125,0.28);
+}
+
 .cardArrow {
   font-size: 18px;
   color: var(--gold);

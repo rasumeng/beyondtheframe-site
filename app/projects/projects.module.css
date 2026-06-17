@@ -109,7 +109,7 @@
 
 .projectRow {
   display: grid;
-  grid-template-columns: 120px 1fr 200px 160px;
+  grid-template-columns: 120px 1fr 200px;
   gap: 2rem;
   align-items: center;
   padding: 2.5rem 0;
@@ -313,7 +313,6 @@
   .rowAbbr { font-size: 10px; }
   .rowName { font-size: 22px; }
   .rowName small { font-size: 11px; }
-  .rowDownloads { text-align: left; margin-top: 0.5rem; }
   .rowStatus { justify-content: flex-start; margin-top: 0.5rem; }
   .statsRow { padding: 3rem 1.5rem; gap: 3rem; }
 }

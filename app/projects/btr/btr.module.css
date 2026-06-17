@@ -66,8 +66,8 @@
   font-size: 15px;
   color: var(--text-muted);
   line-height: 1.9;
-  margin-bottom: 2.5rem;
-  max-width: 440px;
+  margin-bottom: 2rem;
+  max-width: 480px;
 }
 
 .heroActions {
@@ -212,22 +212,84 @@
   line-height: 1.8;
 }
 
-.downloadSection {
+/* ── TERMINAL BLOCK ── */
+.terminalBlock {
+  background: #0a0a0a;
+  border: 0.5px solid rgba(201,168,76,0.15);
+  padding: 1rem 1.25rem;
+  font-family: 'DM Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.termLine {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.termPrompt {
+  color: var(--gold);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.termCmd {
+  color: var(--cream);
+}
+
+.copyBtn {
+  background: transparent;
+  border: 0.5px solid rgba(201,168,76,0.2);
+  color: var(--text-dim);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.copyBtn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(201,168,76,0.08);
+}
+
+.copyBtn.copied {
+  border-color: rgba(97,196,125,0.4);
+  color: #7DD4A0;
+}
+
+.heroTerminal {
+  margin-bottom: 2rem;
+  max-width: 480px;
+}
+
+/* ── INSTALL SECTION ── */
+.installSection {
   padding: 6rem 4rem;
   border-top: 0.5px solid var(--gold-dim);
+  border-bottom: 0.5px solid var(--gold-dim);
 }
 
-.downloadBox {
-  border: 0.5px solid rgba(201,168,76,0.25);
-  padding: 4rem;
-  background: var(--dark-2);
+.installGrid {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  align-items: center;
+  align-items: start;
+  margin-top: 3rem;
 }
 
-.downloadHeading {
+.installHeading {
   font-family: 'Playfair Display', serif;
   font-size: clamp(28px, 4vw, 44px);
   font-weight: 300;
@@ -236,66 +298,74 @@
   line-height: 1.1;
 }
 
-.downloadHeading em {
+.installHeading em {
   font-style: italic;
   color: var(--gold-light);
 }
 
-.downloadDesc {
+.installDesc {
   font-size: 14px;
   color: var(--text-muted);
   line-height: 1.85;
   max-width: 440px;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
-.downloadMeta {
+.installSteps {
   display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
-  margin-top: 1.5rem;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.dlMetaItem {
-  font-size: 10px;
+.installStep {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.stepNum {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  padding-top: 2px;
+}
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stepLabel {
+  font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-dim);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.dlMetaDot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--gold);
-  opacity: 0.5;
-}
-
-.downloadRight {
-  text-align: center;
-}
-
-.bigCount {
-  font-family: 'Playfair Display', serif;
-  font-size: 72px;
-  font-weight: 300;
   color: var(--cream);
-  line-height: 1;
-  margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
-.bigCount span {
-  color: var(--gold);
-}
-
-.bigCountLabel {
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+.stepNote {
+  font-size: 12px;
   color: var(--text-dim);
+  line-height: 1.6;
+  font-style: italic;
+  margin-top: 0.25rem;
+  padding-left: 0;
+}
+
+.installNotes {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 0.5px solid rgba(201,168,76,0.12);
+}
+
+.installNotes p {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.7;
 }
 
 .metricsSection {
@@ -558,12 +628,15 @@
   .aboutSection { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; }
   .featuresSection { padding: 4rem 1.5rem; }
   .featuresGrid { grid-template-columns: 1fr; }
-  .downloadSection { padding: 4rem 1.5rem; }
-  .downloadBox { grid-template-columns: 1fr; gap: 2.5rem; }
+  .installSection { padding: 4rem 1.5rem; }
+  .installGrid { grid-template-columns: 1fr; gap: 2.5rem; }
   .metricsSection { padding: 4rem 1.5rem; }
   .metricsGrid { grid-template-columns: repeat(2, 1fr); }
   .reviewsSection { padding: 4rem 1.5rem; }
   .feedbackSection { padding: 4rem 1.5rem; }
   .feedbackForm { flex-direction: column; }
   .feedbackBtn { width: 100%; }
+  .terminalBlock { font-size: 11px; padding: 0.75rem 1rem; }
+  .heroTerminal { max-width: 100%; }
+  .installSteps { gap: 1.25rem; }
 }

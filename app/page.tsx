@@ -1,19 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { useFadeUpObserver } from '@/lib/animations';
-import { getTotalDownloads } from '@/lib/analytics';
 import styles from './home.module.css';
 
 export default function Home() {
-  const [totalDownloads, setTotalDownloads] = useState(0);
-  
   useFadeUpObserver();
-  
-  useEffect(() => {
-    setTotalDownloads(getTotalDownloads());
-  }, []);
 
   return (
     <>
@@ -95,7 +87,7 @@ export default function Home() {
             <h3 className={styles.projectName}>Beyond The Résumé</h3>
             <p className={styles.projectDesc}>A free tool to help you present yourself as more than a list of bullet points — because you are.</p>
             <div className={styles.projectFooter}>
-              <span className={`${styles.badge} ${styles.badgeSoon}`}>Coming Soon</span>
+              <span className={`${styles.badge} ${styles.badgeLive}`}>Live</span>
               <span className={styles.cardArrow}>→</span>
             </div>
           </Link>
@@ -122,8 +114,8 @@ export default function Home() {
 
       <div className={styles.statsBar}>
         <div className="fade-up">
-          <div className={styles.statNum}>{totalDownloads}+</div>
-          <div className={styles.statLabel}>Total Downloads</div>
+          <div className={styles.statNum}>pip <span>install</span></div>
+          <div className={styles.statLabel}>One Command to Start</div>
         </div>
         <div className="fade-up">
           <div className={styles.statNum}>2<span>+</span></div>

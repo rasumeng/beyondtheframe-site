@@ -1,9 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect, FormEvent, useCallback } from 'react';
 import { useFadeUpObserver } from '@/lib/animations';
-import { trackDownload, getProjectDownloads } from '@/lib/analytics';
 import styles from './btr.module.css';
 
 const METRICS_CONFIG: Record<string, { label: string; desc: string; icon: string }> = {
@@ -32,7 +31,6 @@ export default function BTRPage() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [downloads, setDownloads] = useState(0);
   const [metrics, setMetrics] = useState<{ total: number; byEvent: Record<string, number>; byLabel: Record<string, number> } | null>(null);
   const [metricsLoading, setMetricsLoading] = useState(true);
   const [formData, setFormData] = useState({ name: '', message: '' });
@@ -43,7 +41,6 @@ export default function BTRPage() {
   useEffect(() => {
     fetchReviews();
     fetchMetrics();
-    setDownloads(getProjectDownloads('btr'));
   }, []);
 
   const fetchMetrics = async () => {
@@ -85,11 +82,15 @@ export default function BTRPage() {
     }
   };
 
-  const handleDownload = () => {
-    trackDownload('btr', 'Beyond The Résumé');
-    setDownloads(prev => prev + 1);
-    window.location.href = '/downloads/BTFResume-1.0.0-Portable.zip';
-  };
+  const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
+
+  const copyToClipboard = useCallback(async (cmd: string) => {
+    try {
+      await navigator.clipboard.writeText(cmd);
+      setCopiedCmd(cmd);
+      setTimeout(() => setCopiedCmd(null), 2000);
+    } catch { /* clipboard not available */ }
+  }, []);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -145,10 +146,25 @@ export default function BTRPage() {
           <p className={styles.heroTagline}>
             A free tool to help you present yourself as more than a list of bullet points — because you are more than that.
           </p>
+          <div className={styles.heroTerminal}>
+            <div className={styles.terminalBlock}>
+              <div className={styles.termLine}>
+                <span className={styles.termPrompt}>$</span>
+                <span className={styles.termCmd}>pip install btr-resume</span>
+                <button className={`${styles.copyBtn} ${copiedCmd === 'pip install btr-resume' ? styles.copied : ''}`} onClick={() => copyToClipboard('pip install btr-resume')}>
+                  {copiedCmd === 'pip install btr-resume' ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+              <div className={styles.termLine}>
+                <span className={styles.termPrompt}>$</span>
+                <span className={styles.termCmd}>btr serve</span>
+                <button className={`${styles.copyBtn} ${copiedCmd === 'btr serve' ? styles.copied : ''}`} onClick={() => copyToClipboard('btr serve')}>
+                  {copiedCmd === 'btr serve' ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+            </div>
+          </div>
           <div className={styles.heroActions}>
-            <button className="btn-primary" onClick={handleDownload}>
-              Download — Free
-            </button>
             <Link href="/projects" className="btn-outline">
               All Projects
             </Link>
@@ -159,12 +175,12 @@ export default function BTRPage() {
         <div className={`${styles.heroCard} fade-up`}>
           <div className={styles.heroCardTop}>
             <div className={styles.heroCardAbbr}>BTR</div>
-            <div className={styles.heroCardBadge}>Available</div>
+            <div className={styles.heroCardBadge}>Live</div>
           </div>
           <div className={styles.heroCardStats}>
             <div>
-              <div className={styles.cardStatNum}>{downloads}</div>
-              <div className={styles.cardStatLabel}>Downloads</div>
+              <div className={styles.cardStatNum}>pip <span>install</span></div>
+              <div className={styles.cardStatLabel}>One-Command Setup</div>
             </div>
             <div>
               <div className={styles.cardStatNum}>
@@ -173,16 +189,16 @@ export default function BTRPage() {
               <div className={styles.cardStatLabel}>Free</div>
             </div>
             <div>
-              <div className={styles.cardStatNum}>1.0</div>
+              <div className={styles.cardStatNum}>1.0.2</div>
               <div className={styles.cardStatLabel}>Version</div>
             </div>
             <div>
-              <div className={styles.cardStatNum}>May 2026</div>
-              <div className={styles.cardStatLabel}>Launch Date</div>
+              <div className={styles.cardStatNum}>PyPI</div>
+              <div className={styles.cardStatLabel}>Published</div>
             </div>
           </div>
           <p className={styles.heroCardNote}>
-            Be the first to know when Beyond The Résumé launches — sign up below.
+            Install with a single command. No sign-up. No paywall.
           </p>
         </div>
       </div>
@@ -222,64 +238,91 @@ export default function BTRPage() {
 
         <div className={styles.featuresGrid}>
           <div className={`${styles.featureCard} fade-up`}>
-            <span className={styles.featureIcon}>📄</span>
-            <h3 className={styles.featureTitle}>Story-First Layout</h3>
+            <span className={styles.featureIcon}>✨</span>
+            <h3 className={styles.featureTitle}>Bullet Polish</h3>
             <p className={styles.featureDesc}>
-              Structured to lead with who you are, not just what you've done. Because context
-              changes everything.
+              Transform weak bullet points into strong, impact-driven statements. AI-powered
+              rewriting that keeps your voice and amplifies your results.
             </p>
           </div>
 
           <div className={`${styles.featureCard} fade-up`}>
-            <span className={styles.featureIcon}>✦</span>
-            <h3 className={styles.featureTitle}>Clean &amp; Professional</h3>
+            <span className={styles.featureIcon}>🎯</span>
+            <h3 className={styles.featureTitle}>Job Tailoring</h3>
             <p className={styles.featureDesc}>
-              Designed to look sharp in any inbox — clean enough for corporate, distinctive enough
-              to be remembered.
+              Paste a job description and get a resume customized for that role. Every section
+              re-aligned to speak directly to what employers are looking for.
             </p>
           </div>
 
           <div className={`${styles.featureCard} fade-up`}>
-            <span className={styles.featureIcon}>↓</span>
-            <h3 className={styles.featureTitle}>Free Download</h3>
+            <span className={styles.featureIcon}>🔒</span>
+            <h3 className={styles.featureTitle}>100% Local &amp; Private</h3>
             <p className={styles.featureDesc}>
-              No account. No paywall. No subscription. Download it, fill it in, and use it however
-              you need to.
+              Runs entirely on your machine using Ollama. No data ever leaves your computer.
+              Your resume stays yours — always.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ── DOWNLOAD ── */}
-      <section className={styles.downloadSection}>
-        <div className={`${styles.downloadBox} fade-up`}>
+      {/* ── INSTALL ── */}
+      <section className={styles.installSection}>
+        <p className="section-label">Get Started</p>
+        <h2 className="section-title">
+          Install in seconds.<br />
+          <em>No strings.</em>
+        </h2>
+        <div className={styles.installGrid}>
           <div>
-            <h2 className={styles.downloadHeading}>
-              Get it free.<br />
-              <em>No strings.</em>
-            </h2>
-            <p className={styles.downloadDesc}>
-              Beyond The Résumé is free because the mission demands it. Download it, share it, and
-              use it to go beyond.
+            <p className={styles.installDesc}>
+              One command to install, one to run — and it&rsquo;s yours.
             </p>
-            <button className="btn-primary" onClick={handleDownload}>
-              Download Beyond The Résumé →
-            </button>
-            <div className={styles.downloadMeta}>
-              <span className={styles.dlMetaItem}>
-                <span className={styles.dlMetaDot} /> 100% Free
-              </span>
-              <span className={styles.dlMetaItem}>
-                <span className={styles.dlMetaDot} /> No Sign-Up Required
-              </span>
-              <span className={styles.dlMetaItem}>
-                <span className={styles.dlMetaDot} /> Instant Download
-              </span>
+            <div className={styles.installSteps}>
+              <div className={styles.installStep}>
+                <span className={styles.stepNum}>1</span>
+                <div className={styles.stepContent}>
+                  <span className={styles.stepLabel}>Install from PyPI</span>
+                  <div className={styles.terminalBlock}>
+                    <div className={styles.termLine}>
+                      <span className={styles.termPrompt}>$</span>
+                      <span className={styles.termCmd}>pip install btr-resume</span>
+                      <button className={`${styles.copyBtn} ${copiedCmd === 'pip install btr-resume' ? styles.copied : ''}`} onClick={() => copyToClipboard('pip install btr-resume')}>
+                        {copiedCmd === 'pip install btr-resume' ? 'Copied!' : 'Copy'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.installStep}>
+                <span className={styles.stepNum}>2</span>
+                <div className={styles.stepContent}>
+                  <span className={styles.stepLabel}>Start the server</span>
+                  <div className={styles.terminalBlock}>
+                    <div className={styles.termLine}>
+                      <span className={styles.termPrompt}>$</span>
+                      <span className={styles.termCmd}>btr serve</span>
+                      <button className={`${styles.copyBtn} ${copiedCmd === 'btr serve' ? styles.copied : ''}`} onClick={() => copyToClipboard('btr serve')}>
+                        {copiedCmd === 'btr serve' ? 'Copied!' : 'Copy'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.installStep}>
+                <span className={styles.stepNum}>3</span>
+                <div className={styles.stepContent}>
+                  <span className={styles.stepLabel}>Your browser opens to the app</span>
+                  <p className={styles.stepNote}>
+                    Follow the on-screen prompt to install Ollama (~700MB model download on first run). That&rsquo;s it.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-          <div className={styles.downloadRight}>
-            <div className={styles.bigCount}>{downloads}</div>
-            <div className={styles.bigCountLabel}>Downloads &amp; counting</div>
+          <div className={styles.installNotes}>
+            <p>Runs entirely on your machine. No cloud, no uploads, no accounts.</p>
+            <p>Requires Python 3.10+ and Ollama. Both are free and open-source.</p>
           </div>
         </div>
       </section>
