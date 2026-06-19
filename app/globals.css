@@ -25,7 +25,7 @@ body {
   font-family: 'DM Sans', sans-serif;
   background: var(--dark);
   color: var(--text);
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.6;
   overflow-x: hidden;
 }
@@ -165,7 +165,7 @@ nav {
 .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
 
 .section-label {
-  font-size: 15px;
+  font-size: 17px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--gold);
@@ -175,7 +175,7 @@ nav {
 
 .section-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(34px, 5vw, 56px);
+  font-size: clamp(36px, 5vw, 58px);
   font-weight: 300;
   color: var(--cream);
   line-height: 1.08;
@@ -188,7 +188,7 @@ nav {
 }
 
 .section-body {
-  font-size: 15px;
+  font-size: 17px;
   color: var(--text-muted);
   line-height: 1.9;
   max-width: 560px;

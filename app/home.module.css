@@ -19,7 +19,7 @@
 }
 
 .heroEyebrow {
-  font-size: 15px;
+  font-size: 17px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold);
@@ -67,7 +67,7 @@
 
 .heroDesc {
   max-width: 500px;
-  font-size: 15px;
+  font-size: 17px;
   color: var(--text-muted);
   line-height: 1.85;
   margin-bottom: 3rem;
@@ -141,7 +141,7 @@
 }
 
 .aboutRight p {
-  font-size: 15px;
+  font-size: 17px;
   color: var(--text-muted);
   line-height: 1.9;
   margin-bottom: 1.5rem;

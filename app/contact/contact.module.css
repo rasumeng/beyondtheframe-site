@@ -16,7 +16,7 @@
 }
 
 .pageHeroLabel {
-  font-size: 15px;
+  font-size: 17px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--gold);
@@ -45,7 +45,7 @@
 }
 
 .pageHeroSub {
-  font-size: 15px;
+  font-size: 17px;
   color: var(--text-muted);
   max-width: 480px;
   line-height: 1.85;
@@ -103,7 +103,7 @@
 }
 
 .contactIntro {
-  font-size: 15px;
+  font-size: 17px;
   color: var(--text-muted);
   line-height: 1.85;
 }

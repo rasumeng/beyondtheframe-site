@@ -144,89 +144,29 @@ export default function BTRPage() {
             <em>Résumé.</em>
           </h1>
           <p className={styles.heroTagline}>
-            A free tool to help you present yourself as more than a list of bullet points — because you are more than that.
+            A free tool to help you build a stronger resume in minutes — because you are more than a list of bullet points, and your time is better spent being you.
           </p>
-          <div className={styles.heroTerminal}>
-            <div className={styles.terminalBlock}>
-              <div className={styles.termLine}>
-                <span className={styles.termPrompt}>$</span>
-                <span className={styles.termCmd}>pip install btr-resume</span>
-                <button className={`${styles.copyBtn} ${copiedCmd === 'pip install btr-resume' ? styles.copied : ''}`} onClick={() => copyToClipboard('pip install btr-resume')}>
-                  {copiedCmd === 'pip install btr-resume' ? 'Copied!' : 'Copy'}
-                </button>
-              </div>
-              <div className={styles.termLine}>
-                <span className={styles.termPrompt}>$</span>
-                <span className={styles.termCmd}>btr serve</span>
-                <button className={`${styles.copyBtn} ${copiedCmd === 'btr serve' ? styles.copied : ''}`} onClick={() => copyToClipboard('btr serve')}>
-                  {copiedCmd === 'btr serve' ? 'Copied!' : 'Copy'}
-                </button>
-              </div>
-            </div>
-          </div>
           <div className={styles.heroActions}>
+            <a href="#install" className="btn-primary" onClick={(e) => { e.preventDefault(); document.getElementById('install')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}>
+              Get Started
+            </a>
             <Link href="/projects" className="btn-outline">
               All Projects
             </Link>
           </div>
         </div>
 
-        {/* Right: stat card */}
+        {/* Right: card */}
         <div className={`${styles.heroCard} fade-up`}>
           <div className={styles.heroCardTop}>
             <div className={styles.heroCardAbbr}>BTR</div>
             <div className={styles.heroCardBadge}>Live</div>
           </div>
-          <div className={styles.heroCardStats}>
-            <div>
-              <div className={styles.cardStatNum}>pip <span>install</span></div>
-              <div className={styles.cardStatLabel}>One-Command Setup</div>
-            </div>
-            <div>
-              <div className={styles.cardStatNum}>
-                100<span>%</span>
-              </div>
-              <div className={styles.cardStatLabel}>Free</div>
-            </div>
-            <div>
-              <div className={styles.cardStatNum}>1.0.2</div>
-              <div className={styles.cardStatLabel}>Version</div>
-            </div>
-            <div>
-              <div className={styles.cardStatNum}>PyPI</div>
-              <div className={styles.cardStatLabel}>Published</div>
-            </div>
-          </div>
-          <p className={styles.heroCardNote}>
-            Install with a single command. No sign-up. No paywall.
+          <p className={styles.heroCardBody}>
+            BTR runs entirely on your machine — no cloud, no accounts. Your resume stays local and never leaves your computer. Just smart tools to polish, tailor, and present yourself as more than bullet points. All in minutes, not hours.
           </p>
         </div>
       </div>
-
-      {/* ── ABOUT ── */}
-      <section className={styles.aboutSection}>
-        <div className="fade-up">
-          <p className="section-label">What It Is</p>
-          <h2>
-            You are more than<br />
-            your bullet <em>points.</em>
-          </h2>
-        </div>
-        <div className="fade-up">
-          <p>
-            Most résumés ask you to flatten yourself into a list. Dates, titles, tasks. The world
-            looks at that list and decides whether you're worth a conversation.
-          </p>
-          <p>
-            Beyond The Résumé is built on a different belief — that the person matters more than
-            the format. This free tool helps you build something that actually represents you: your
-            story, your skills, your direction.
-          </p>
-          <p>No cost. No catch. Just a better way to show up on paper.</p>
-          <div className="gold-line" />
-          <p className={styles.pullQuote}>&ldquo;Go beyond the bullet points.&rdquo;</p>
-        </div>
-      </section>
 
       {/* ── FEATURES ── */}
       <section className={styles.featuresSection}>
@@ -267,7 +207,7 @@ export default function BTRPage() {
       </section>
 
       {/* ── INSTALL ── */}
-      <section className={styles.installSection}>
+      <section id="install" className={styles.installSection}>
         <p className="section-label">Get Started</p>
         <h2 className="section-title">
           Install in seconds.<br />
@@ -278,11 +218,22 @@ export default function BTRPage() {
             <p className={styles.installDesc}>
               One command to install, one to run — and it&rsquo;s yours.
             </p>
+
+            <details className={styles.prereqs}>
+              <summary className={styles.prereqsSummary}>Prerequisites (what you need first)</summary>
+              <div className={styles.prereqsContent}>
+                <p><strong>Python 3.10+</strong> &mdash; BTR runs on Python. Open your terminal (Command Prompt on Windows, Terminal on macOS/Linux) and type <code>python --version</code> to check if you have it. If not, download from <a href="https://python.org" target="_blank" rel="noopener noreferrer">python.org</a>. During installation on Windows, make sure to check <strong>&ldquo;Add Python to PATH&rdquo;</strong>.</p>
+                <p><strong>pip</strong> &mdash; Python&rsquo;s package installer. It comes bundled with Python 3.4+, so if Python is installed, pip is ready to go.</p>
+                <p><strong>Ollama</strong> &mdash; BTR uses Ollama to run AI models locally on your computer. Don&rsquo;t install it yet &mdash; BTR will guide you through this on first launch.</p>
+              </div>
+            </details>
+
             <div className={styles.installSteps}>
               <div className={styles.installStep}>
                 <span className={styles.stepNum}>1</span>
                 <div className={styles.stepContent}>
                   <span className={styles.stepLabel}>Install from PyPI</span>
+                  <p className={styles.stepNote}>Copy and paste this command into your terminal, then press Enter. pip downloads BTR and all its dependencies automatically.</p>
                   <div className={styles.terminalBlock}>
                     <div className={styles.termLine}>
                       <span className={styles.termPrompt}>$</span>
@@ -298,6 +249,7 @@ export default function BTRPage() {
                 <span className={styles.stepNum}>2</span>
                 <div className={styles.stepContent}>
                   <span className={styles.stepLabel}>Start the server</span>
+                  <p className={styles.stepNote}>Once installed, run this command to start BTR. It launches a local web server on your machine. You&rsquo;ll see a URL like <code>http://localhost:8000</code> appear in your terminal.</p>
                   <div className={styles.terminalBlock}>
                     <div className={styles.termLine}>
                       <span className={styles.termPrompt}>$</span>
@@ -314,15 +266,17 @@ export default function BTRPage() {
                 <div className={styles.stepContent}>
                   <span className={styles.stepLabel}>Your browser opens to the app</span>
                   <p className={styles.stepNote}>
-                    Follow the on-screen prompt to install Ollama (~700MB model download on first run). That&rsquo;s it.
+                    Your default browser will open to BTR automatically. If Ollama isn&rsquo;t installed yet, the app will prompt you &mdash; follow the on-screen instructions to install it (it&rsquo;s free and open-source). The first AI model download is about <strong>700MB</strong>, so it may take a few minutes depending on your connection. After that, you&rsquo;re all set.
                   </p>
                 </div>
               </div>
             </div>
           </div>
           <div className={styles.installNotes}>
-            <p>Runs entirely on your machine. No cloud, no uploads, no accounts.</p>
-            <p>Requires Python 3.10+ and Ollama. Both are free and open-source.</p>
+            <p><strong>Runs 100% locally.</strong> Your resumes never leave your computer. No cloud, no uploads, no accounts.</p>
+            <p><strong>Completely free.</strong> No paywall, no trial, no hidden costs.</p>
+            <p><strong>Keep the terminal open</strong> while using BTR. Closing it will stop the server.</p>
+            <p>To update later, run <code>pip install --upgrade btr-resume</code>.</p>
           </div>
         </div>
       </section>
