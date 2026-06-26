@@ -277,6 +277,8 @@ export default function BTRPage() {
             <p><strong>Completely free.</strong> No paywall, no trial, no hidden costs.</p>
             <p><strong>Keep the terminal open</strong> while using BTR. Closing it will stop the server.</p>
             <p>To update later, run <code>pip install --upgrade btr-resume</code>.</p>
+            <p><strong>To open terminal:</strong> Press <code>Ctrl + Alt + T</code> (Linux) or <code>Cmd + Space</code> and type "Terminal" (Mac).</p>
+            <p><strong>To open command prompt:</strong> Press <code>Win + R</code> and type "cmd" or press the Start menu and search for "Command Prompt" (Windows).</p>
           </div>
         </div>
       </section>
@@ -356,6 +358,8 @@ export default function BTRPage() {
             <em>Beyond The Résumé?</em>
           </h2>
           <p className={styles.feedbackIntro}>
+            <strong>How to open the terminal:</strong> Press <code>Ctrl + Alt + T</code> (Linux) or <code>Cmd + Space</code> and type "Terminal" (Mac).<br />
+            <strong>How to open the command prompt:</strong> Press <code>Win + R</code> and type "cmd" or press the Start menu and search for "Command Prompt" (Windows).
             Your feedback helps shape the tool. Share your experience — what&rsquo;s working, what
             could be better, or just say hello.
           </p>
