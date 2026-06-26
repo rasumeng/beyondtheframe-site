@@ -222,7 +222,7 @@ export default function BTRPage() {
             <details className={styles.prereqs}>
               <summary className={styles.prereqsSummary}>Prerequisites (what you need first)</summary>
               <div className={styles.prereqsContent}>
-                <p><strong>Python 3.10+</strong> &mdash; BTR runs on Python. Open your terminal (Command Prompt on Windows, Terminal on macOS/Linux) and type <code>python --version</code> to check if you have it. If not, download from <a href="https://www.python.org/downloads/" target="_blank" rel="noopener noreferrer">python.org</a>. During installation on Windows, make sure to check <strong>&ldquo;Add Python to PATH&rdquo;</strong>.</p>
+                <p><strong>Python 3.10+</strong> &mdash; BTR runs on Python. Open your terminal (Command Prompt on Windows, Terminal on macOS/Linux) and type <code>python --version</code> to check if you have it. If not, download from <a href="https://www.python.org/downloads/" target="_blank" rel="noopener noreferrer">python.org/downloads/</a>. During installation on Windows, make sure to check <strong>&ldquo;Add Python to PATH&rdquo;</strong>.</p>
                 <p><strong>pip</strong> &mdash; Python&rsquo;s package installer. It comes bundled with Python 3.4+, so if Python is installed, pip is ready to go.</p>
                 <p><strong>Ollama</strong> &mdash; BTR uses Ollama to run AI models locally on your computer. Don&rsquo;t install it yet &mdash; BTR will guide you through this on first launch.</p>
               </div>
